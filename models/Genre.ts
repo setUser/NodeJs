@@ -1,5 +1,6 @@
 import { Schema, model } from "mongoose";
 import { locator } from "./base";
+import { ModelRef } from ".";
 
 type GenreType = locator & {
   name: string;
@@ -7,7 +8,7 @@ type GenreType = locator & {
 };
 
 const Genre = model<GenreType>(
-  "Genre",
+  ModelRef.Genre,
   new Schema({
     name: {
       type: String,

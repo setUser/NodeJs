@@ -1,5 +1,6 @@
-import Course from "../models/Course";
+import Course, { CourseType } from "../models/Course";
 import seed from "./seed";
+import Author from "../models/Author";
 
 export default class tips {
   static ApplySeed() {
@@ -17,6 +18,7 @@ export default class tips {
       .skip(11)
       .limit(10)
       .sort({ name: 1 })
+      .populate("author")
       .select({ name: 1, author: 1 });
   }
   static CountQuery() {
@@ -60,5 +62,15 @@ export default class tips {
   }
   static ValidateModel() {
     return new Course({ name: "" }).validate();
+  }
+  static async AddCourseWithAuthor() {
+    const author = await new Author({ name: "REAL" }).save();
+    const course = await new Course({
+      name: "ashasifu",
+      tags: ["sedf"],
+      category: "mobile",
+      author: author,
+    } satisfies CourseType).save();
+    console.log(await Course.find().populate("author"));
   }
 }

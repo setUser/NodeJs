@@ -1,18 +1,20 @@
 import { Schema, SchemaTypeOptions, model } from "mongoose";
 import { locator } from "./base";
+import { ModelRef } from ".";
+import { AuthorType } from "./Author";
 
 type CourseType = locator & {
   name: string;
   category: "web" | "mobile" | "network";
   price?: number;
-  author?: string;
+  author: string | AuthorType;
   tags: Array<string>;
   date?: Date;
   isPublished?: boolean;
 };
 
 const Course = model<CourseType>(
-  "Course",
+  ModelRef.Course,
   new Schema<CourseType>({
     name: {
       type: String,
@@ -38,7 +40,11 @@ const Course = model<CourseType>(
       get: (value) => Math.round(value),
       set: (value) => Math.round(value),
     } as SchemaTypeOptions<number>,
-    author: String,
+    author: {
+      type: Schema.Types.ObjectId,
+      required: true,
+      ref: ModelRef.Author,
+    } as SchemaTypeOptions<any>,
     tags: {
       type: Array<String>,
       validate: {
@@ -51,7 +57,10 @@ const Course = model<CourseType>(
       },
     } as SchemaTypeOptions<ArrayConstructor>,
     date: { type: Date, default: Date.now },
-    isPublished: Boolean,
+    isPublished: {
+      type: Boolean,
+      default: false,
+    },
   })
 );
 
