@@ -8,14 +8,13 @@ type AuthorType = locator & {
   website: string;
 };
 
-const Author = model<AuthorType>(
-  ModelRef.Author,
-  new Schema({
-    name: String,
-    bio: String,
-    website: String,
-  })
-);
+const AuthorSchema = new Schema({
+  name: String,
+  bio: String,
+  website: String,
+});
 
-export { AuthorType };
+const Author = model<AuthorType>(ModelRef.Author, AuthorSchema);
+
+export { AuthorType, AuthorSchema };
 export default Author;

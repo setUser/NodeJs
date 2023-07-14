@@ -7,21 +7,20 @@ type GenreType = locator & {
   year: number;
 };
 
-const Genre = model<GenreType>(
-  ModelRef.Genre,
-  new Schema({
-    name: {
-      type: String,
-      required: true,
-      minlength: 5,
-      maxlength: 50,
-    },
-    year: {
-      type: Number,
-      required: true,
-    },
-  })
-);
+const GenreSchema = new Schema({
+  name: {
+    type: String,
+    required: true,
+    minlength: 5,
+    maxlength: 50,
+  },
+  year: {
+    type: Number,
+    required: true,
+  },
+});
 
-export { GenreType };
+const Genre = model<GenreType>(ModelRef.Genre, GenreSchema);
+
+export { GenreType, GenreSchema };
 export default Genre;
