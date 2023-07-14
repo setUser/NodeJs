@@ -2,10 +2,10 @@ import Course from "../models/Course";
 import seed from "./seed";
 
 export default class tips {
-  ApplySeed() {
+  static ApplySeed() {
     return Promise.all(seed.map((c) => new Course(c).save()));
   }
-  FindQuery() {
+  static FindQuery() {
     return Course.find({
       name: /^/,
     })
@@ -19,16 +19,16 @@ export default class tips {
       .sort({ name: 1 })
       .select({ name: 1, author: 1 });
   }
-  CountQuery() {
+  static CountQuery() {
     return Course.find().count();
   }
-  FindThenUpdate() {
+  static FindThenUpdate() {
     Course.findById("5a68fdc3615eda645bc6bdec").then((course) => {
       if (course) course.price += 5;
       return course.save();
     });
   }
-  UpdateByIDAndGetUpdated() {
+  static UpdateByIDAndGetUpdated() {
     return Course.findByIdAndUpdate(
       "5a68fdc3615eda645bc6bdec",
       {
@@ -42,7 +42,7 @@ export default class tips {
       }
     );
   }
-  UpdateByQuery() {
+  static UpdateByQuery() {
     return Course.updateOne(
       { _id: "5a68fdc3615eda645bc6bdec" },
       {
@@ -52,13 +52,13 @@ export default class tips {
       }
     );
   }
-  RemoveByID() {
+  static RemoveByID() {
     return Course.findByIdAndRemove("5a68fdc3615eda645bc6bdec");
   }
-  RemoveByQuery() {
+  static RemoveByQuery() {
     return Course.deleteOne({ _id: "5a68fdc3615eda645bc6bdec" });
   }
-  ValidateModel() {
+  static ValidateModel() {
     return new Course({ name: "" }).validate();
   }
 }
