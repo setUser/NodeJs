@@ -1,0 +1,15 @@
+{
+  "name": "your-package",
+  "version": "1.0.0",
+  "description": "Your package description",
+  "scripts": {
+    "start": "tsc index.ts && node index.js"
+  },
+  "dependencies": {
+    "@types/mongoose": "^5.11.97",
+    "express": "^4.18.2",
+    "mongoose": "^5.13.20",
+    "ts-mongoose": "^0.0.24",
+    "typescript": "^5.1.6"
+  }
+}
