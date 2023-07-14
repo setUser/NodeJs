@@ -40,6 +40,8 @@ npm i helmet
 npm i -D @types/helmet
 npm i morgan
 npm i -D @types/morgan
+npm i fawn
+npm i joi
 npm i pug
 ```
 
