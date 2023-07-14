@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Your package description",
   "scripts": {
-    "start": "tsc index.ts && node index.js"
+    "start": "tsc && node dist/index.js"
   },
   "dependencies": {
     "@types/mongoose": "^5.11.97",
