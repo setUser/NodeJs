@@ -3,6 +3,7 @@ import { locator } from "./base";
 
 type GenreType = locator & {
   name: string;
+  year: number;
 };
 
 const Genre = model<GenreType>(
@@ -13,6 +14,10 @@ const Genre = model<GenreType>(
       required: true,
       minlength: 5,
       maxlength: 50,
+    },
+    year: {
+      type: Number,
+      required: true,
     },
   })
 );

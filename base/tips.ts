@@ -24,8 +24,8 @@ export default class tips {
   }
   static FindThenUpdate() {
     Course.findById("5a68fdc3615eda645bc6bdec").then((course) => {
-      if (course) course.price += 5;
-      return course.save();
+      if (course?.price) course.price += 5;
+      return course?.save();
     });
   }
   static UpdateByIDAndGetUpdated() {

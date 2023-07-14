@@ -4,7 +4,7 @@ const router = express.Router();
 
 router.get("/", async (req, res) => {
   const courses = await Course.find();
-  res.send(courses);
+  return res.status(200).json(courses);
 });
 
 export default router;
