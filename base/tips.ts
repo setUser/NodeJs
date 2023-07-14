@@ -1,5 +1,5 @@
-import { Course } from "./models";
-import seed from "./seed/seed";
+import Course from "../models/Course";
+import seed from "./seed";
 
 export default class tips {
   ApplySeed() {

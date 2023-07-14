@@ -1,10 +1,5 @@
 import { Schema, SchemaTypeOptions, model } from "mongoose";
-import { delay } from "./utils";
-
-type locator = {
-  _id?: string;
-  __v?: number;
-};
+import { locator } from "./base";
 
 type CourseType = locator & {
   name: string;
@@ -48,7 +43,7 @@ const Course = model<CourseType>(
       type: Array<String>,
       validate: {
         validator: async function (value: Array<String>) {
-          await delay(1000);
+          // await delay(1000);
           const result = (value?.length > 0) as any;
           return result;
         },
@@ -60,4 +55,5 @@ const Course = model<CourseType>(
   })
 );
 
-export { CourseType, Course };
+export { CourseType };
+export default Course;

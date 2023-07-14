@@ -1,22 +1,22 @@
-import { Error, connect } from "mongoose";
-import { Course, CourseType } from "./models";
+import express = require("express");
+import { connect } from "mongoose";
+import Courses from "./routers/Courses";
+import Genres from "./routers/Genres";
 
 (async () => {
   const connection = await connect("mongodb://localhost");
   try {
-    // const result = await Course.find();
-    const result = await new Course({
-      name: "ANggt",
-      category: "mobile",
-      author: "",
-      tags: [],
-      isPublished: true,
-      price: 1,
-    } satisfies CourseType).save();
-    console.log(result);
+    const app = express();
+    app.use(express.json());
+    app.use("/api/courses", Courses);
+    app.use("/api/genres", Genres);
+    app.get("/", (req, res) => {
+      res.send("Index");
+    });
+    const port = process.env.PORT || 3000;
+    app.listen(port, () => console.log(`Listening on port ${port}...`));
   } catch (ex) {
-    const validatorError = ex as Error.ValidatorError;
-    console.error(validatorError.message);
+    console.error(ex);
   } finally {
     connection.disconnect();
   }
