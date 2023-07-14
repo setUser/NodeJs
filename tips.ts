@@ -58,4 +58,7 @@ export default class tips {
   RemoveByQuery() {
     return Course.deleteOne({ _id: "5a68fdc3615eda645bc6bdec" });
   }
+  ValidateModel() {
+    return new Course({ name: "" }).validate();
+  }
 }
