@@ -70,6 +70,7 @@ export default class tips {
       tags: ["sedf"],
       category: "mobile",
       author: author,
+      genres: [],
     } satisfies CourseType).save();
     console.log(await Course.find().populate("author"));
   }

@@ -6,6 +6,7 @@ import connectDB from "./middleware/connectDB";
 import Helmet from "helmet";
 import Morgan from "morgan";
 import Users from "./routes/Users";
+import Auth from "./routes/Auth";
 
 dotenv.config();
 
@@ -29,6 +30,7 @@ app.use(connectDB); // to support Mongo DB connection
 app.use("/api/courses", Courses);
 app.use("/api/genres", Genres);
 app.use("/api/users", Users);
+app.use('/api/auth', Auth);
 
 app.listen(port, () => {
   console.log(`⚡️[server]: Server is running at http://localhost:${port}`);

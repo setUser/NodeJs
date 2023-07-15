@@ -3,28 +3,37 @@ import _ from "lodash";
 import auth from "../middleware/auth";
 import express from "express";
 import User, { UserType } from "../models/User";
+import { ValidationError } from "../utils/functions";
 const router = express.Router();
 
 router.get("/me", auth, async (req, res) => {
-  const user = await User.findById(
-    (req as any as { user: UserType }).user._id
-  ).select("-password");
-  res.send(user);
+  try {
+    const user = await User.findById(
+      (req as any as { user: UserType }).user._id
+    ).select("-password");
+    res.send(user);
+  } catch (error) {
+    return ValidationError(res, error);
+  }
 });
 
 router.post("/", async (req, res) => {
-  let user = await User.findOne({ email: req.body.email });
-  if (user) return res.status(400).send("User already registered.");
+  try {
+    let user = await User.findOne({ email: req.body.email });
+    if (user) return res.status(400).send("User already registered.");
 
-  user = new User(_.pick(req.body, ["name", "email", "password"]));
-  const salt = await bcrypt.genSalt(10);
-  user.password = await bcrypt.hash(user.password, salt);
-  await user.save();
+    user = new User(_.pick(req.body, ["name", "email", "password"]));
+    const salt = await bcrypt.genSalt(10);
+    user.password = await bcrypt.hash(user.password, salt);
+    await user.save();
 
-  const token = user.generateAuthToken();
-  res
-    .header("x-auth-token", token)
-    .send(_.pick(user, ["_id", "name", "email"]));
+    // const token = user.generateAuthToken();
+    res
+      // .header("x-auth-token", token)
+      .send(_.pick(user, ["_id", "name", "email"]));
+  } catch (error) {
+    return ValidationError(res, error);
+  }
 });
 
 export default router;
