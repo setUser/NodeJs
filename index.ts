@@ -2,9 +2,10 @@ import express, { Express } from "express";
 import dotenv from "dotenv";
 import Courses from "./routes/Courses";
 import Genres from "./routes/Genres";
-import { connectDB } from "./middleware/mongoose";
+import connectDB from "./middleware/connectDB";
 import Helmet from "helmet";
 import Morgan from "morgan";
+import Users from "./routes/Users";
 
 dotenv.config();
 
@@ -27,6 +28,7 @@ app.use(Morgan("dev")); // logger HTTP middleware for node.js
 app.use(connectDB); // to support Mongo DB connection
 app.use("/api/courses", Courses);
 app.use("/api/genres", Genres);
+app.use("/api/users", Users);
 
 app.listen(port, () => {
   console.log(`⚡️[server]: Server is running at http://localhost:${port}`);

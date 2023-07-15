@@ -1,6 +1,5 @@
 import { Schema, model } from "mongoose";
-import { locator } from "./base";
-import { ModelRef } from ".";
+import { ModelRef, locator } from "./base";
 
 type GenreType = locator & {
   name: string;

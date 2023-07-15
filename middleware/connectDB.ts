@@ -6,4 +6,4 @@ const connectDB: RequestHandler<any> = async (req, res, next) => {
   next();
 };
 
-export { connectDB };
+export default connectDB;

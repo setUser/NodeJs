@@ -1,6 +1,5 @@
 import { Schema, SchemaTypeOptions, model } from "mongoose";
-import { locator } from "./base";
-import { ModelRef } from ".";
+import { ModelRef, locator } from "./base";
 import { AuthorType } from "./Author";
 import { GenreSchema, GenreType } from "./Genre";
 

@@ -1,6 +1,5 @@
 import { model, Schema } from "mongoose";
-import { locator } from "./base";
-import { ModelRef } from ".";
+import { locator, ModelRef } from "./base";
 
 type AuthorType = locator & {
   name: string;

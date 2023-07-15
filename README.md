@@ -32,16 +32,29 @@ git init
 ## Node Modules
 
 ```
+npm i config
+npm i --D @types/config
 npm i express dotenv
 npm i -D typescript @types/express @types/node
 npm i -D concurrently nodemon
 npm i ts-mongoose mongoose @types/mongoose
+
 npm i helmet
 npm i -D @types/helmet
 npm i morgan
 npm i -D @types/morgan
+
 npm i fawn
-npm i joi
+npm i --D @types/fawn
+
+npm i jsonwebtoken
+npm i --D @types/jsonwebtoken
+npm i bcrypt
+npm i --D @types/bcrypt
+
+npm i lodash
+npm i --D @types/lodash
+npm i joi joi-objectid
 npm i pug
 ```
 
