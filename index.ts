@@ -7,6 +7,15 @@ import Helmet from "helmet";
 import Morgan from "morgan";
 import Users from "./routes/Users";
 import Auth from "./routes/Auth";
+import config from "config";
+import EnvKeys from "./config/env-keys";
+import auth from "./middleware/auth";
+import isAdmin from "./middleware/isAdmin";
+
+if (!config.get(EnvKeys.jwtPrivateKey)) {
+  console.error("FATAL ERROR: jwtPrivateKey is not defined");
+  process.exit(1);
+}
 
 dotenv.config();
 
@@ -27,10 +36,10 @@ app.use(Helmet()); // helps secure Express apps by setting HTTP response headers
 app.use(Morgan("dev")); // logger HTTP middleware for node.js
 
 app.use(connectDB); // to support Mongo DB connection
-app.use("/api/courses", Courses);
+app.use("/api/courses", auth, isAdmin, Courses);
 app.use("/api/genres", Genres);
 app.use("/api/users", Users);
-app.use('/api/auth', Auth);
+app.use("/api/auth", Auth);
 
 app.listen(port, () => {
   console.log(`⚡️[server]: Server is running at http://localhost:${port}`);

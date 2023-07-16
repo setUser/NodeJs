@@ -2,6 +2,7 @@ import config from "config";
 import jwt from "jsonwebtoken";
 import { Schema, model } from "mongoose";
 import { ModelRef, locator } from "./base";
+import EnvKeys from "../config/env-keys";
 
 type UserType = locator & {
   name: string;
@@ -10,7 +11,7 @@ type UserType = locator & {
   isAdmin?: boolean;
 };
 
-const UserSchema = new Schema({
+const UserSchema = new Schema<UserType>({
   name: {
     type: String,
     required: true,
@@ -33,16 +34,15 @@ const UserSchema = new Schema({
   isAdmin: Boolean,
 });
 
-UserSchema.methods.generateAuthToken = function () {
-  const user = this as any as UserType;
+function GenerateAuthToken(user: UserType) {
   const token = jwt.sign(
     { _id: user._id, isAdmin: user.isAdmin },
-    config.get("jwtPrivateKey")
+    config.get(EnvKeys.jwtPrivateKey)
   );
   return token;
-};
+}
 
-const User = model(ModelRef.User, UserSchema);
+const User = model<UserType>(ModelRef.User, UserSchema);
 
 export default User;
-export { UserType, UserSchema };
+export { UserType, UserSchema, GenerateAuthToken };
