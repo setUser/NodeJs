@@ -11,6 +11,7 @@ import config from "config";
 import EnvKeys from "./config/env-keys";
 import auth from "./middleware/auth";
 import isAdmin from "./middleware/isAdmin";
+import errorhandling from "./middleware/errorhandling";
 
 if (!config.get(EnvKeys.jwtPrivateKey)) {
   console.error("FATAL ERROR: jwtPrivateKey is not defined");
@@ -40,6 +41,7 @@ app.use("/api/courses", auth, isAdmin, Courses);
 app.use("/api/genres", Genres);
 app.use("/api/users", Users);
 app.use("/api/auth", Auth);
+app.use(errorhandling);
 
 app.listen(port, () => {
   console.log(`⚡️[server]: Server is running at http://localhost:${port}`);

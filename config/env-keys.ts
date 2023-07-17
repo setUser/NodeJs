@@ -9,5 +9,3 @@ type EnvKeysType = {
 env satisfies EnvKeysType;
 
 export default EnvKeys;
-
-// export app_jwtPrivateKey=secretKey

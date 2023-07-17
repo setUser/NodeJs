@@ -3,12 +3,13 @@ import Genre from "../models/Genre";
 import { ValidationError } from "../utils/functions";
 const router = express.Router();
 
-router.get("/", async (req, res) => {
+router.get("/", async (req, res, next) => {
   try {
     const genres = await Genre.find().sort("name");
     return res.send(genres);
   } catch (error) {
-    return ValidationError(res, error);
+    ValidationError(res, error);
+    next(error);
   }
 });
 

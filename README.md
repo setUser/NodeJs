@@ -29,6 +29,12 @@ git init
 }
 ```
 
+## enviroments
+
+```
+export app_jwtPrivateKey=secretKey
+```
+
 ## Node Modules
 
 ```
