@@ -1,6 +1,7 @@
-# Initial Setup
+# ⚙️ Initial Setup
 
 ```
+nvm use 17.0.1
 npm init --yes
 npx tsc --init
 git init
@@ -62,17 +63,21 @@ npm i lodash
 npm i --D @types/lodash
 npm i joi joi-objectid
 npm i pug
+
+npm install graphql
+npm install apollo-server-express
+npm install --D @types/graphql
 ```
 
 ---
 
-# Run MongoDB container
+# 🚀 Run MongoDB container
 
 ```
 docker run -d -p 27017:27017 mongo
 ```
 
-## Run MongoDB container with persistent volume
+## 🚀 Run MongoDB container with persistent volume
 
 ```
 docker run -d -p 27017:27017 -v /Users/cardo/Documents/NodeJs/data:/data/db --name mongo_container mongo

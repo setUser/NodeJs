@@ -1,17 +1,18 @@
-import express = require("express");
+import express from "express";
 import Genre from "../models/Genre";
 import { ValidationError } from "../utils/functions";
+import asyncMiddleware from "../middleware/asyncMiddleware";
 const router = express.Router();
 
-router.get("/", async (req, res, next) => {
-  try {
+router.get(
+  "/",
+  asyncMiddleware(async (req, res) => {
+    throw new Error("");
+
     const genres = await Genre.find().sort("name");
     return res.send(genres);
-  } catch (error) {
-    ValidationError(res, error);
-    next(error);
-  }
-});
+  })
+);
 
 router.get("/:id", async (req, res) => {
   try {
