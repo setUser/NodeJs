@@ -1,14 +1,56 @@
+type Author {
+  name: String
+  bio: String
+  website: String
+}
+
 type Book {
   id: ID
   title: String!
-  author: String
+  author: String!
+}
+
+type Post {
+  id: ID!
+  title: String!
+  content: String!
+  comments: [Comment!]!
+}
+
+type Comment {
+  id: ID!
+  text: String!
+  postId: ID!
+}
+
+input PostFilter {
+  titleContains: String
+}
+
+enum PostSortField {
+  TITLE
+  CREATED_AT
+}
+
+enum SortDirection {
+  ASC
+  DESC
 }
 
 type Query {
+  authors: [Author]
   books: [Book]
   book(id: ID!): Book
+  posts(
+    filter: PostFilter
+    sortField: PostSortField
+    sortDirection: SortDirection
+    limit: Int
+  ): [Post!]!
 }
 
 type Mutation {
-  addBook(title: String!, author: String): Book
+  createPost(title: String!, content: String!): Post!
+  createComment(postId: ID!, text: String!): Comment!
+  addBook(title: String!, author: String!): Book
 }
