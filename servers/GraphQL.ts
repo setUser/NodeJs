@@ -1,0 +1,21 @@
+import express from "express";
+import { ApolloServer, gql } from "apollo-server-express";
+import resolvers from "../resolvers/resolvers";
+import fs from "fs";
+
+export default async function () {
+  const app = express();
+
+  const server = new ApolloServer({
+    typeDefs: gql(fs.readFileSync("./schemas/schemas.gql", "utf8")),
+    resolvers,
+  });
+
+  await server.start();
+  server.applyMiddleware({ app });
+
+  const PORT = 4000;
+  app.listen(PORT, () => {
+    console.log(`Server running at http://localhost:${PORT}`);
+  });
+}
